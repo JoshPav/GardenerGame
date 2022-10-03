@@ -4,6 +4,9 @@ import styled, { css } from "styled-components";
 import GameHeaderBar from "./components/gameheaderbar/GameHeaderBar";
 import Overlay from "./components/overlay/Overlay";
 import Gardener from "./page/Gardener";
+import websiteBackground from "./assets/Websitebackground.png";
+import backgroundPortrait from "./assets/background_portrait.png";
+import backgroundLandscape from "./assets/background_landscape.png";
 import { LoadInPage } from "./page/LoadInPage";
 import {
   GameEnded,
@@ -23,7 +26,7 @@ const AppContainer = styled.div`
   align-items: center;
   flex: 1;
   height: 100vh;
-  background-image: url(src/assets/Websitebackground.png);
+  background-image: url(${websiteBackground});
   background-size: cover;
 `;
 
@@ -44,8 +47,8 @@ const GameboardContainer = styled.div(({ isPortrait }: Props) => {
     justify-content: space-between;
     flex: 1;
     background-image: ${isPortrait
-      ? "url(src/assets/background_portrait.png)"
-      : "url(src/assets/background_landscape.png)"};
+      ? `url(${backgroundPortrait})`
+      : `url(${backgroundLandscape})`};
     background-repeat: no-repeat;
     background-size: cover;
   `;

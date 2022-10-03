@@ -17,7 +17,6 @@ import beigePatch from "../../assets/beige_patch.png";
 const CellContainer = styled.div`
   display: flex;
   width: ${screenHeight / 8}px;
-  background-image: url("src/assets/soilpatch.png");
   background-size: contain;
   align-items: flex-end;
   justify-content: center;
@@ -41,7 +40,6 @@ const PlantGraphic = ({ plant }: PlantGraphicProps) => {
 const PlantCellContainer = styled.div`
   display: flex;
   width: ${screenHeight / 8}px;
-  background-image: url("src/assets/soilpatch.png");
   background-size: contain;
   align-items: center;
   justify-content: center;
