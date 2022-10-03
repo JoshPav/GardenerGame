@@ -29,7 +29,7 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^1.0.7",
     "@vitest/coverage-c8": "^0.22.1",
-    "jsdom": "^20.0.0",
+    "jsdom": "^19.0.0",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vite-tsconfig-paths": "^3.5.0",
