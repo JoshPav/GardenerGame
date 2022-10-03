@@ -5,7 +5,7 @@ export const initialGameState: GameState = {
   playerStats: {
     name: "",
     isGo: false,
-    isSwapTool: false,
+    isSwapTool: true,
     numberofTurns: 0,
     prevMove: "",
     score: 0,
@@ -61,4 +61,12 @@ export const PlantsLeaving = atom({
 export const IsLandscape = atom<Boolean | undefined>({
   key: "isLandscape",
   default: undefined,
+});
+
+export const HasError = atom({
+  key: "hasError",
+  default: {
+    show: false,
+    message: "",
+  },
 });

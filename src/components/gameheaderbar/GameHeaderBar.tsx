@@ -2,7 +2,9 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
 import { IsLandscape } from "../../state/Game";
+import MenuPost from "../menus/MenuPost";
 import Toolbox from "../toolbox/Toolbox";
+import nameSign from "../../assets/NameBoard.png";
 
 type Props = {
   isPortrait: boolean;
@@ -11,25 +13,28 @@ type Props = {
 const Container = styled.div(({ isPortrait }: Props) => {
   return css`
     display: flex;
-    height: ${isPortrait ? "28%" : "38%"};
+    height: ${isPortrait ? "25%" : "30%"};
     align-items: flex-end;
     align-self: flex-start;
-    background-color: yellow;
+    justify-content: space-evenly;
   `;
 });
 
 const Spacer = styled.div(({ isPortrait }: Props) => {
   return css`
-    width: ${isPortrait ? "32vh;" : "63vh;"};
+    width: ${isPortrait ? "35vh;" : "25vh;"};
   `;
 });
 
-const GameHeaderBar = () => {
+type GameHeaderBarProps = {
+  onMenuClick: () => void;
+};
+
+const GameHeaderBar = (props: GameHeaderBarProps) => {
   const isLandscape = useRecoilValue(IsLandscape);
   return (
     <Container isPortrait={!isLandscape}>
-      <div>Menu Post</div>
-      <Spacer isPortrait={!isLandscape} />
+      <MenuPost onMenuClick={props.onMenuClick} />
       <Toolbox />
     </Container>
   );

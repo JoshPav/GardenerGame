@@ -4,15 +4,11 @@ type Props = {};
 
 const Watermelon = (props: Props) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <img src={watermelon} width={"90%"} />
-    </div>
+    <img
+      src={watermelon}
+      width={"90%"}
+      style={{ justifySelf: "center", alignSelf: "center" }}
+    />
   );
 };
 

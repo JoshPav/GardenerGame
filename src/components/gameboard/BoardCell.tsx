@@ -4,8 +4,8 @@ import styled, { css } from "styled-components";
 import { Cell, Coordinate } from "../../types/GameState";
 import { Plant } from "../../types/Plant";
 import { screenHeight, useGameLogic } from "../../hooks/useGameLogic";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { GameSetup, PlantToSwap } from "../../state/Game";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { GameSetup, HasError, PlantToSwap } from "../../state/Game";
 import Aubergine from "../plantables/Aubergine";
 import Flower from "../plantables/Flower";
 import Pumpkin from "../plantables/Pumpkin";
@@ -93,6 +93,7 @@ type PlantedCellProps = {
 const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
   const [gameSetup, setGameSetup] = useRecoilState(GameSetup);
   const [plantToSwap, setPlantToSwap] = useRecoilState(PlantToSwap);
+  const setHasError = useSetRecoilState(HasError);
   const {
     plantCrop,
     mapCoordinateToBoardCell,
@@ -103,9 +104,9 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
     calculateDigUpScore,
   } = useGameLogic();
 
-  const setPlantIsSwapping = (bool: boolean) => {
+  const setPlantIsSwapping = (bool: boolean, co: Coordinate) => {
     const newPlant: Plant = { ...plant, beingSwapped: bool };
-    const newGameboard = plantCrop(gameSetup.board, newPlant, coordinate);
+    const newGameboard = plantCrop(gameSetup.board, newPlant, co);
     setGameSetup((prevState) => ({
       ...prevState,
       board: newGameboard,
@@ -154,12 +155,16 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
         },
       }));
     } else {
-      alert("Not enough to dig");
+      setHasError({ show: true, message: "Error: Not enough to dig" });
+      setTimeout(() => {
+        setHasError({ show: false, message: "" });
+      }, 3000);
     }
   };
 
   let plantSwapCoordinateMatched = false;
   const onPlantSwap = () => {
+    let plantTypeMatched = false;
     if (plantToSwap !== null) {
       const plantAtSwapCell = mapCoordinateToBoardCell(
         plantToSwap,
@@ -168,12 +173,10 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
       plantSwapCoordinateMatched =
         plantToSwap.XCord === coordinate.XCord &&
         plantToSwap.YCord === coordinate.YCord;
-      let plantTypeMatched = false;
       if (plantAtSwapCell !== "empty") {
         plantTypeMatched = plantAtSwapCell.name === plant.name;
       }
-      plantSwapCoordinateMatched =
-        plantSwapCoordinateMatched || plantTypeMatched;
+      plantSwapCoordinateMatched = plantSwapCoordinateMatched;
     }
     console.log("time to swap");
     console.log("Coordinate", coordinate);
@@ -182,16 +185,25 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
     if (plantToSwap === null) {
       console.log("This plant is to swap");
       setPlantToSwap(coordinate);
-      setPlantIsSwapping(true);
+      setPlantIsSwapping(true, coordinate);
     }
-    // If Plants to Swap already includes the plant
+    // If Plants to Swap already includes the plant at coordinate
     if (plantSwapCoordinateMatched) {
       console.log("Plant deselected to swap");
       setPlantToSwap(null);
-      setPlantIsSwapping(false);
+      setPlantIsSwapping(false, coordinate);
+    }
+    if (plantTypeMatched && !plantSwapCoordinateMatched) {
+      setHasError({
+        show: true,
+        message: "Error: Cannot Dig Same Type of Plant",
+      });
+      setTimeout(() => {
+        setHasError({ show: false, message: "" });
+      }, 3000);
     }
     // If plants to swap has one in there
-    if (plantToSwap !== null && !plantSwapCoordinateMatched) {
+    if (plantToSwap !== null && !plantTypeMatched) {
       const newGameboard = swapPlants(gameSetup.board, plantToSwap, coordinate);
       if (newGameboard !== false) {
         const numberOfTurns = gameSetup.playerStats.numberofTurns + 1;

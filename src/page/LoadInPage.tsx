@@ -11,6 +11,7 @@ const LoadInPageContainer = styled.div`
 `;
 
 const GameHeader = styled.p`
+  font-family: fantasy;
   font-size: 30px;
 `;
 
@@ -20,7 +21,6 @@ const BottomText = styled.p`
 
 type Props = {
   onNewGameClick: () => void;
-  onLoadGameClick: () => void;
   onHighscoresClick: () => void;
   onExitGameClick: () => void;
 };
@@ -28,7 +28,6 @@ type Props = {
 const LoadInPage = ({
   onExitGameClick,
   onHighscoresClick,
-  onLoadGameClick,
   onNewGameClick,
 }: Props) => {
   const bottomText =
@@ -39,7 +38,6 @@ const LoadInPage = ({
       <LoadInMenu
         onExitGameClick={onExitGameClick}
         onHighscoresClick={onHighscoresClick}
-        onLoadGameClick={onLoadGameClick}
         onNewGameClick={onNewGameClick}
       />
       <BottomText>{bottomText}</BottomText>

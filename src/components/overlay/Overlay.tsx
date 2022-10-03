@@ -9,8 +9,8 @@ import { GameSetup, initialGameState } from "../../state/Game";
 type Props = {
   menuType: string;
   onCancelClick: () => void;
-  onStartLoadGame: () => void;
   onStartNewGame: () => void;
+  onExitGameClick: () => void;
 };
 
 const StyledCard = styled(Card)`
@@ -18,8 +18,7 @@ const StyledCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 100vh;
-  height: 30vh;
+  min-width: 50vh;
   background-color: #ffde9e !important;
 `;
 
@@ -27,8 +26,8 @@ const OverlayContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60%;
-  width: 60%;
+  height: 100%;
+  width: 100%;
   position: fixed;
   z-index: 2;
 `;
@@ -52,6 +51,8 @@ type OverlayHeaderProps = {
 
 const GameHeader = styled.div`
   font-size: 26px;
+  color: #ab7203;
+  font-family: fantasy;
 `;
 
 const OverlayHeader = ({ name, onCancelClick }: OverlayHeaderProps) => {
@@ -69,7 +70,6 @@ const OverlayHeader = ({ name, onCancelClick }: OverlayHeaderProps) => {
 type FooterProps = {
   menuType: string;
   onStartNewGame: () => void;
-  onStartLoadGame: () => void;
 };
 
 const FooterContainer = styled.div`
@@ -90,24 +90,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const OverlayFooter = ({
-  menuType,
-  onStartNewGame,
-  onStartLoadGame,
-}: FooterProps) => {
+const OverlayFooter = ({ menuType, onStartNewGame }: FooterProps) => {
   return (
     <FooterContainer>
       {menuType === "newGame" ? (
         <StyledButton size="large" variant="contained" onClick={onStartNewGame}>
           Let's Go!
-        </StyledButton>
-      ) : menuType === "loadGame" ? (
-        <StyledButton
-          size="large"
-          variant="contained"
-          onClick={onStartLoadGame}
-        >
-          Open
         </StyledButton>
       ) : null}
     </FooterContainer>
@@ -132,6 +120,37 @@ const CssTextField = styled(TextField)({
   },
 });
 
+const HighScoresOverlay = () => {
+  return <div>Highscores</div>;
+};
+
+type InGameOverlayProps = {
+  onNewGameClick: () => void;
+  onExitGameClick: () => void;
+};
+
+const InGameOverlay = (props: InGameOverlayProps) => {
+  return (
+    <>
+      <StyledButton
+        size="large"
+        variant="contained"
+        onClick={props.onNewGameClick}
+      >
+        New Game
+      </StyledButton>
+      <div style={{ paddingBottom: "5%" }} />
+      <StyledButton
+        size="large"
+        variant="contained"
+        onClick={props.onExitGameClick}
+      >
+        End Game
+      </StyledButton>
+    </>
+  );
+};
+
 const NewGameOverlay = ({ onPlayerNameEntered }: NewGameOverlayProps) => {
   return (
     <CssTextField
@@ -145,10 +164,11 @@ const NewGameOverlay = ({ onPlayerNameEntered }: NewGameOverlayProps) => {
 const Overlay = ({
   menuType,
   onCancelClick,
-  onStartLoadGame,
   onStartNewGame,
+  onExitGameClick,
 }: Props) => {
   const [playerName, setPlayerName] = useState("");
+  const [innerMenuType, setInnerMenuType] = useState(menuType);
   const setGameSetup = useSetRecoilState(GameSetup);
   const resetGame = useResetRecoilState(GameSetup);
   const onNewGameClick = () => {
@@ -168,24 +188,30 @@ const Overlay = ({
       <StyledCard>
         <OverlayHeader
           name={
-            menuType === "newGame"
+            innerMenuType === "newGame"
               ? "New Game"
-              : menuType === "loadGame"
-              ? "Load Game"
               : menuType === "highscores"
               ? "Highscores"
+              : menuType === "inGame"
+              ? "Menu"
               : ""
           }
           onCancelClick={onCancelClick}
         />
-        {menuType === "newGame" ? (
+        {innerMenuType === "newGame" ? (
           <NewGameOverlay
             onPlayerNameEntered={(value) => setPlayerName(value)}
           />
+        ) : innerMenuType === "highscores" ? (
+          <HighScoresOverlay />
+        ) : innerMenuType === "inGame" ? (
+          <InGameOverlay
+            onNewGameClick={() => setInnerMenuType("newGame")}
+            onExitGameClick={onExitGameClick}
+          />
         ) : null}
         <OverlayFooter
-          menuType={menuType}
-          onStartLoadGame={onStartLoadGame}
+          menuType={innerMenuType}
           onStartNewGame={onNewGameClick}
         />
       </StyledCard>

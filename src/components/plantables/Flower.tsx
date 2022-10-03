@@ -5,15 +5,11 @@ type Props = {};
 
 const Flower = (props: Props) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <img src={flower} width={"90%"} />
-    </div>
+    <img
+      src={flower}
+      width={"90%"}
+      style={{ justifySelf: "center", alignSelf: "center" }}
+    />
   );
 };
 

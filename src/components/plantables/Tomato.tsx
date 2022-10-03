@@ -4,15 +4,11 @@ type Props = {};
 
 const Tomato = (props: Props) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <img src={tomato} width={"90%"} />
-    </div>
+    <img
+      src={tomato}
+      width={"90%"}
+      style={{ justifySelf: "center", alignSelf: "center" }}
+    />
   );
 };
 

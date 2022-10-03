@@ -12,11 +12,12 @@ import { LoadInPage } from "./page/LoadInPage";
 import {
   GameEnded,
   GameStarted,
+  HasError,
   IsLandscape,
   SavedGames,
   SavedHighScores,
 } from "./state/Game";
-import { GameState, Highscore } from "./types/GameState";
+import GameOver from "./page/GameOver";
 type Props = {
   isPortrait: boolean;
 };
@@ -39,18 +40,12 @@ const AppBorder = styled.div(({ isPortrait }: Props) => {
   `;
 });
 
-const NavBar = styled.div`
-  display: flex;
-  height: 10vh;
-  background-color: yellow;
-`;
-
 const GameboardContainer = styled.div(({ isPortrait }: Props) => {
   return css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex: 1;
     background-image: ${isPortrait
       ? "url(src/assets/background_portrait.png)"
@@ -60,9 +55,31 @@ const GameboardContainer = styled.div(({ isPortrait }: Props) => {
   `;
 });
 
+const NotificationBar = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: fantasy;
+  font-weight: 700;
+  top: 2%;
+  width: 50%;
+  height: 5%;
+  margin: auto;
+  background-color: #cc0000;
+  border: 1px solid black;
+  z-index: 5;
+  border-radius: 10px;
+  color: #ffffff;
+  animation: slideInDown;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+`;
+
 function App() {
   const [open, setOpen] = useState(false);
   const [isGameActive, setIsGameActive] = useRecoilState(GameStarted);
+  const hasError = useRecoilValue(HasError);
   const [isGameEnded, setIsGameEnded] = useRecoilState(GameEnded);
   const [isLandscape, setIsLandscape] = useRecoilState(IsLandscape);
   const [menuType, setMenuType] = useState("");
@@ -93,17 +110,9 @@ function App() {
     };
   });
 
-  const localStorageSavedGames = localStorage.getItem("savedGames");
-  const localStorageHighscores = localStorage.getItem("savedHighscores");
-  if (localStorageSavedGames !== null) {
-    setSavedGames(JSON.parse(localStorageSavedGames));
-  }
-  if (localStorageHighscores !== null) {
-    setSavedHighscores(JSON.parse(localStorageHighscores));
-  }
-
-  const onSaveGameClick = () => {
-    console.log("On Save Game Click");
+  const onOpenInGameOverLay = () => {
+    setMenuType("inGame");
+    setOpen(true);
   };
 
   const onNewGameClick = () => {
@@ -115,11 +124,6 @@ function App() {
     setOpen(true);
     setMenuType("highscores");
   };
-
-  const onLoadGameClick = () => {
-    setOpen(true);
-    setMenuType("loadGame");
-  };
   const onExitGameClick = () => {
     window.close();
   };
@@ -129,12 +133,32 @@ function App() {
     setOpen(false);
   };
 
+  const closeActiveGame = () => {
+    setOpen(false);
+    setIsGameActive(false);
+  };
+
+  const onMainMenuClick = () => {
+    setIsGameEnded(false);
+  };
+
   if (isGameEnded)
     return (
       <AppContainer>
         <AppBorder isPortrait={!isLandscape}>
           <GameboardContainer isPortrait={!isLandscape}>
-            <div>Game Over</div>
+            <GameOver
+              onNewGameClick={onNewGameClick}
+              onMainMenuClick={onMainMenuClick}
+            />
+            {open ? (
+              <Overlay
+                menuType={menuType}
+                onCancelClick={() => setOpen(false)}
+                onStartNewGame={onStartNewGame}
+                onExitGameClick={() => console.log("exit")}
+              />
+            ) : null}
           </GameboardContainer>
         </AppBorder>
       </AppContainer>
@@ -145,22 +169,17 @@ function App() {
       <AppContainer>
         <AppBorder isPortrait={!isLandscape}>
           <GameboardContainer isPortrait={!isLandscape}>
-            <GameHeaderBar />
-            <div
-              style={
-                !isLandscape
-                  ? { height: "calc(70%-1px)" }
-                  : { height: "calc(60%-1px)" }
-              }
-            >
-              <Gardener />
-            </div>
+            {hasError.show ? (
+              <NotificationBar>{hasError.message}</NotificationBar>
+            ) : null}
+            <GameHeaderBar onMenuClick={onOpenInGameOverLay} />
+            <Gardener />
             {open ? (
               <Overlay
                 menuType={menuType}
                 onCancelClick={() => setOpen(false)}
                 onStartNewGame={onStartNewGame}
-                onStartLoadGame={() => console.log("Implement Loading")}
+                onExitGameClick={closeActiveGame}
               />
             ) : null}
           </GameboardContainer>
@@ -175,14 +194,13 @@ function App() {
             onExitGameClick={onExitGameClick}
             onHighscoresClick={onHighscoresClick}
             onNewGameClick={onNewGameClick}
-            onLoadGameClick={onLoadGameClick}
           />
           {open ? (
             <Overlay
               menuType={menuType}
               onCancelClick={() => setOpen(false)}
               onStartNewGame={onStartNewGame}
-              onStartLoadGame={() => console.log("Implement Loading")}
+              onExitGameClick={() => console.log("exit")}
             />
           ) : null}
         </GameboardContainer>

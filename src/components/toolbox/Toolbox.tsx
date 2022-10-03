@@ -1,6 +1,6 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { GameSetup } from "../../state/Game";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { GameSetup, IsLandscape } from "../../state/Game";
 import styled, { css } from "styled-components";
 import swapSmurf from "../../assets/SwapSmurf.png";
 import digSmurf from "../../assets/DigSmurf.png";
@@ -8,13 +8,21 @@ type ToolContainerProps = {
   isSelected: boolean;
 };
 
-const CharacterContainer = styled.div`
+const PortraitCharacterContainer = styled.div`
   display: flex;
-  height: 100%;
+  width: 30%;
+  margin-right: 10%;
+`;
+
+const LandscapeCharacterContainer = styled.div`
+  display: flex;
+  width: 20%;
+  margin-right: 10%;
 `;
 
 const Toolbox = () => {
   const [gameSetup, updateGameSetup] = useRecoilState(GameSetup);
+  const isLandscape = useRecoilValue(IsLandscape);
   const setIsSwapTool = (bool: boolean) => {
     updateGameSetup((prevState) => ({
       ...prevState,
@@ -24,8 +32,20 @@ const Toolbox = () => {
       },
     }));
   };
+  if (isLandscape)
+    return (
+      <LandscapeCharacterContainer
+        onClick={() => setIsSwapTool(!gameSetup.playerStats.isSwapTool)}
+      >
+        <img
+          src={gameSetup.playerStats.isSwapTool ? swapSmurf : digSmurf}
+          width="100%"
+          style={{ objectFit: "contain" }}
+        />
+      </LandscapeCharacterContainer>
+    );
   return (
-    <CharacterContainer
+    <PortraitCharacterContainer
       onClick={() => setIsSwapTool(!gameSetup.playerStats.isSwapTool)}
     >
       <img
@@ -33,7 +53,7 @@ const Toolbox = () => {
         width="100%"
         style={{ objectFit: "contain" }}
       />
-    </CharacterContainer>
+    </PortraitCharacterContainer>
   );
 };
 

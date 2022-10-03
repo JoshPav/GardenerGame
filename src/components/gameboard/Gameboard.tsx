@@ -16,8 +16,8 @@ type Props = {
 const GamboardContainer = styled.div(({ isPortrait }: Props) => {
   return css`
     display: flex;
-    height: ${isPortrait ? screenWidth * 0.6 : screenHeight * 0.5}px;
-    width: ${isPortrait ? screenWidth * 0.6 : screenHeight * 0.5}px;
+    height: ${isPortrait ? screenWidth * 0.8 : screenHeight * 0.63}px;
+    width: ${isPortrait ? screenWidth * 0.8 : screenHeight * 0.63}px;
     flex-direction: column;
     border: 0.5vh solid #966f33;
     background-image: url(src/assets/grid_no_patches.png);

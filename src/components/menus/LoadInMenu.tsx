@@ -28,7 +28,6 @@ const StyledButton = styled(Button)`
 
 type Props = {
   onNewGameClick: () => void;
-  onLoadGameClick: () => void;
   onHighscoresClick: () => void;
   onExitGameClick: () => void;
 };
@@ -36,16 +35,12 @@ type Props = {
 const LoadInMenu = ({
   onExitGameClick,
   onHighscoresClick,
-  onLoadGameClick,
   onNewGameClick,
 }: Props) => {
   return (
     <StyledCard>
       <StyledButton size="large" variant="contained" onClick={onNewGameClick}>
         New Game
-      </StyledButton>
-      <StyledButton size="large" variant="contained" onClick={onLoadGameClick}>
-        Load Game
       </StyledButton>
       <StyledButton
         size="large"

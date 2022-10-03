@@ -4,15 +4,11 @@ type Props = {};
 
 const Pumpkin = (props: Props) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <img src={pumpkin} width={"90%"} />
-    </div>
+    <img
+      src={pumpkin}
+      width={"90%"}
+      style={{ justifySelf: "center", alignSelf: "center" }}
+    />
   );
 };
 

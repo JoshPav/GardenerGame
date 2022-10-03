@@ -25,8 +25,8 @@ const spawnPlants = (
     const emptyCoordinates = getEmptyCellCoordinates(tempBoard);
     console.log("empty coordinates: ", emptyCoordinates);
     if (emptyCoordinates.length === 0) {
-      setGameOver(true);
       console.log("Game over");
+      setGameOver(true);
       break;
     }
     const newGameboard = spawnPlantRandomly(
@@ -42,13 +42,12 @@ const spawnPlants = (
 const Gardener = () => {
   const [gameSetup, updateGameSetup] = useRecoilState(GameSetup);
   const toggleGameOver = useSetRecoilState(GameEnded);
+  const toggleGameActive = useSetRecoilState(GameStarted);
 
   const setGameOver = (bool: boolean) => {
     toggleGameOver(bool);
+    toggleGameActive(!bool);
   };
-  console.log(gameSetup.board);
-  const { spawnPlantRandomly, getRandomNumber, getEmptyCellCoordinates } =
-    useSpawnLogic();
   // Computers Go
   // Spawn Initial 10 plants
   if (
