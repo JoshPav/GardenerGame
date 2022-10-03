@@ -31,7 +31,6 @@ export const useSpawnLogic = () => {
     const { plantCrop } = useGameLogic();
     const randomCoordinate =
       emptyCoordinates[getRandomNumber(0, emptyCoordinates.length - 1)];
-    console.log("random coordinate: ", randomCoordinate);
     const newGameboard = plantCrop(gameboard, plant, {
       XCord: randomCoordinate.XCord,
       YCord: randomCoordinate.YCord,

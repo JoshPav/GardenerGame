@@ -114,24 +114,16 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
   };
 
   const onPlantDig = () => {
-    console.log("time to dig");
     // Check is Valid Dig
     const touchingPlantCoordinates = matchingPlantsTouching(
       gameSetup.board,
       coordinate
     );
-    console.log(
-      "number of touching plants: ",
-      touchingPlantCoordinates.length,
-      touchingPlantCoordinates
-    );
     const canDig = canDigUp(
       plant.minimumToDig,
       touchingPlantCoordinates.length
     );
-    console.log("minimum dig ", plant.minimumToDig, "so digging is, ", canDig);
     if (canDig) {
-      console.log("time to actually dig");
       const boardAfterDig = digUpPlants(
         gameSetup.board,
         touchingPlantCoordinates as Coordinate[]
@@ -178,18 +170,13 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
       }
       plantSwapCoordinateMatched = plantSwapCoordinateMatched;
     }
-    console.log("time to swap");
-    console.log("Coordinate", coordinate);
-    console.log("Plant to swap", plantToSwap);
     // If Plants to Swap is Empty
     if (plantToSwap === null) {
-      console.log("This plant is to swap");
       setPlantToSwap(coordinate);
       setPlantIsSwapping(true, coordinate);
     }
     // If Plants to Swap already includes the plant at coordinate
     if (plantSwapCoordinateMatched) {
-      console.log("Plant deselected to swap");
       setPlantToSwap(null);
       setPlantIsSwapping(false, coordinate);
     }
@@ -223,7 +210,6 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
   };
 
   const onPlantClick = () => {
-    console.log(plant.name, " clicked");
     if (gameSetup.playerStats.isGo && gameSetup.playerStats.isSwapTool) {
       onPlantSwap();
     }

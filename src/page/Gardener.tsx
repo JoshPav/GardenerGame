@@ -19,13 +19,9 @@ const spawnPlants = (
   let tempBoard = board;
   for (let i = 0; i < quantity; i++) {
     const randomNumber = getRandomNumber(0, plantables.length);
-    console.log("random number: ", randomNumber);
     const randomPlant = plantables[randomNumber];
-    console.log("randomPlant: ", randomPlant);
     const emptyCoordinates = getEmptyCellCoordinates(tempBoard);
-    console.log("empty coordinates: ", emptyCoordinates);
     if (emptyCoordinates.length === 0) {
-      console.log("Game over");
       setGameOver(true);
       break;
     }
@@ -95,8 +91,6 @@ const Gardener = () => {
       }, 500);
     }
   }
-
-  console.log("Game Setup Updated: ", gameSetup);
 
   return <Gameboard />;
 };

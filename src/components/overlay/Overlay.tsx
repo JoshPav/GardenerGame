@@ -172,7 +172,6 @@ const Overlay = ({
   const setGameSetup = useSetRecoilState(GameSetup);
   const resetGame = useResetRecoilState(GameSetup);
   const onNewGameClick = () => {
-    console.log("click");
     resetGame();
     setGameSetup((prevState) => ({
       ...prevState,
