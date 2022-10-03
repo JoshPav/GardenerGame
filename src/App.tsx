@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled, { css } from "styled-components";
 import GameHeaderBar from "./components/gameheaderbar/GameHeaderBar";
-import Gameboard from "./components/gameboard/Gameboard";
-import LeftSide from "./components/LeftSide";
-import GameMenu from "./components/menus/GameMenu";
 import Overlay from "./components/overlay/Overlay";
-import RightSide from "./components/RightSide";
 import Gardener from "./page/Gardener";
 import { LoadInPage } from "./page/LoadInPage";
 import {
