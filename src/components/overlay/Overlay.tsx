@@ -6,6 +6,7 @@ import "animate.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { GameSetup, initialGameState } from "../../state/Game";
+import Highscores from "../menus/Highscores";
 type Props = {
   menuType: string;
   onCancelClick: () => void;
@@ -18,7 +19,7 @@ const StyledCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-width: 50vh;
+  min-width: 70vh;
   background-color: #ffde9e !important;
 `;
 
@@ -120,10 +121,6 @@ const CssTextField = styled(TextField)({
   },
 });
 
-const HighScoresOverlay = () => {
-  return <div>Highscores</div>;
-};
-
 type InGameOverlayProps = {
   onNewGameClick: () => void;
   onExitGameClick: () => void;
@@ -202,7 +199,7 @@ const Overlay = ({
             onPlayerNameEntered={(value) => setPlayerName(value)}
           />
         ) : innerMenuType === "highscores" ? (
-          <HighScoresOverlay />
+          <Highscores />
         ) : innerMenuType === "inGame" ? (
           <InGameOverlay
             onNewGameClick={() => setInnerMenuType("newGame")}

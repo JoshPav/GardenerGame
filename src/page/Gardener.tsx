@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { GameEnded, GameSetup, GameStarted } from "../state/Game";
 import { useSpawnLogic } from "../hooks/useSpawnLogic";
@@ -8,6 +8,7 @@ import Gameboard from "../components/gameboard/Gameboard";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { GameState } from "../types/GameState";
+import { ApiContext } from "../context/apiContext";
 
 const spawnPlants = (
   quantity: number,
@@ -40,9 +41,15 @@ const Gardener = () => {
   const toggleGameOver = useSetRecoilState(GameEnded);
   const toggleGameActive = useSetRecoilState(GameStarted);
 
-  const setGameOver = (bool: boolean) => {
+  const apiClient = useContext(ApiContext);
+
+  const setGameOver = async (bool: boolean) => {
     toggleGameOver(bool);
     toggleGameActive(!bool);
+    await apiClient.result.recordResult({
+      name: gameSetup.playerStats.name,
+      score: gameSetup.playerStats.score,
+    });
   };
   // Computers Go
   // Spawn Initial 10 plants

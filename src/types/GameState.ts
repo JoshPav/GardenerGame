@@ -24,5 +24,5 @@ export type GameState = {
 export type Highscore = {
   name: string;
   score: number;
-  timeStamp: Date;
+  endTime: Date;
 };

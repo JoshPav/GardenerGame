@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { RecoilRoot } from "recoil";
+import { ApiContext, getApiInstance } from "./context/apiContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -10,6 +11,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <RecoilRoot>
-    <App />
+    <ApiContext.Provider value={getApiInstance()}>
+      <App />
+    </ApiContext.Provider>
   </RecoilRoot>
 );

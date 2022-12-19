@@ -128,6 +128,7 @@ function App() {
   };
 
   const onStartNewGame = () => {
+    setIsGameEnded(false);
     setIsGameActive(true);
     setOpen(false);
   };
@@ -173,16 +174,16 @@ function App() {
             ) : null}
             <GameHeaderBar onMenuClick={onOpenInGameOverLay} />
             <Gardener />
-            {open ? (
-              <Overlay
-                menuType={menuType}
-                onCancelClick={() => setOpen(false)}
-                onStartNewGame={onStartNewGame}
-                onExitGameClick={closeActiveGame}
-              />
-            ) : null}
           </GameboardContainer>
         </AppBorder>
+        {open ? (
+          <Overlay
+            menuType={menuType}
+            onCancelClick={() => setOpen(false)}
+            onStartNewGame={onStartNewGame}
+            onExitGameClick={closeActiveGame}
+          />
+        ) : null}
       </AppContainer>
     );
   return (
@@ -194,16 +195,16 @@ function App() {
             onHighscoresClick={onHighscoresClick}
             onNewGameClick={onNewGameClick}
           />
-          {open ? (
-            <Overlay
-              menuType={menuType}
-              onCancelClick={() => setOpen(false)}
-              onStartNewGame={onStartNewGame}
-              onExitGameClick={() => console.log("exit")}
-            />
-          ) : null}
         </GameboardContainer>
       </AppBorder>
+      {open ? (
+        <Overlay
+          menuType={menuType}
+          onCancelClick={() => setOpen(false)}
+          onStartNewGame={onStartNewGame}
+          onExitGameClick={() => console.log("exit")}
+        />
+      ) : null}
     </AppContainer>
   );
 }
