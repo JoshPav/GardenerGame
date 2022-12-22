@@ -207,20 +207,38 @@ const mapResult = (result: GameResult): Highscore => {
 const Highscores = (props: Props) => {
   const apiClient = useContext(ApiContext);
   const [highscores, setHighscores] = useState([] as Highscore[]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
-      const scores = (await apiClient.result.getTopResults()).data.map(
-        mapResult
-      );
-      return setHighscores(scores);
+      try {
+        setLoading(true);
+
+        const scores = (await apiClient.result.getTopResults()).data.map(
+          mapResult
+        );
+
+        return setHighscores(scores);
+      } catch (err) {
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
   return (
     <Container>
       <HighscoreColumnHeaders />
-      {highscores.map((score, index) => (
-        <HighscoreLine score={score} position={index + 1} key={index} />
-      ))}
+
+      {loading && (
+        <Item style={{ fontFamily: "fantasy", margin: "10px" }}>
+          Loading...
+        </Item>
+      )}
+
+      {!loading &&
+        highscores.map((score, index) => (
+          <HighscoreLine score={score} position={index + 1} key={index} />
+        ))}
     </Container>
   );
 };
