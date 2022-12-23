@@ -55,7 +55,7 @@ const GameOver = (props: Props) => {
     <Container>
       <BackgroundContainer>
         <div style={{ paddingBottom: "5%" }}></div>
-        <Text>{playerStats.name}Name</Text>
+        <Text>Name: {playerStats.name}</Text>
         <Text>Score: {playerStats.score}</Text>
         <StyledButton
           size="large"
