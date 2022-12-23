@@ -28,6 +28,7 @@ const AppContainer = styled.div`
   height: 100vh;
   background-image: url(${websiteBackground});
   background-size: cover;
+  user-select: none;
 `;
 
 const AppBorder = styled.div(({ isPortrait }: Props) => {
@@ -82,8 +83,6 @@ function App() {
   const [isGameEnded, setIsGameEnded] = useRecoilState(GameEnded);
   const [isLandscape, setIsLandscape] = useRecoilState(IsLandscape);
   const [menuType, setMenuType] = useState("");
-  const setSavedGames = useSetRecoilState(SavedGames);
-  const setSavedHighscores = useSetRecoilState(SavedHighScores);
 
   useEffect(() => {
     if (window.innerWidth >= window.innerHeight) {

@@ -1,10 +1,11 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
-import { IsLandscape } from "../../state/Game";
+import { GameSetup, IsLandscape } from "../../state/Game";
 import MenuPost from "../menus/MenuPost";
 import Toolbox from "../toolbox/Toolbox";
 import nameSign from "../../assets/NameBoard.png";
+import { useSpawnLogic } from "../../hooks/useSpawnLogic";
 
 type Props = {
   isPortrait: boolean;
@@ -32,10 +33,28 @@ type GameHeaderBarProps = {
 
 const GameHeaderBar = (props: GameHeaderBarProps) => {
   const isLandscape = useRecoilValue(IsLandscape);
+  const gameboard = useRecoilValue(GameSetup).board;
+  const { getEmptyCellCoordinates } = useSpawnLogic();
+  const spacesLeft = getEmptyCellCoordinates(gameboard).length;
+  const spacesLeftText = `${spacesLeft} SPACES LEFT`;
   return (
     <Container isPortrait={!isLandscape}>
       <MenuPost onMenuClick={props.onMenuClick} />
       <Toolbox />
+      <div
+        style={{
+          position: "absolute",
+          right: 475,
+          top: 238,
+          transform: "rotate(13deg)",
+          fontFamily: "fantasy",
+          color: "#e5b41d",
+          fontWeight: 700,
+          fontSize: 14,
+        }}
+      >
+        {spacesLeftText}
+      </div>
     </Container>
   );
 };

@@ -19,6 +19,7 @@ const PortraitScoreMenu = styled.div`
   transform: rotate(-9deg);
   font-family: fantasy;
   color: #e5b41d;
+  cursor: default;
 `;
 
 const PortraitNameLabel = styled.div`
@@ -32,6 +33,7 @@ const PortraitNameLabel = styled.div`
   font-family: fantasy;
   letter-spacing: 2px;
   color: #e5b41d;
+  cursor: default;
 `;
 type Props = {
   onMenuClick: () => void;
@@ -66,7 +68,7 @@ const MenuPost = (props: Props) => {
       <img
         src={scorePart2}
         width="100%"
-        style={{ objectFit: "contain" }}
+        style={{ objectFit: "contain", cursor: "pointer" }}
         onClick={props.onMenuClick}
       />
       <img src={scorePart1} width="100%" style={{ objectFit: "contain" }} />

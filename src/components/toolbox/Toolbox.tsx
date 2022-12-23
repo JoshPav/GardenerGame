@@ -12,12 +12,14 @@ const PortraitCharacterContainer = styled.div`
   display: flex;
   width: 30%;
   margin-right: 10%;
+  cursor: pointer;
 `;
 
 const LandscapeCharacterContainer = styled.div`
   display: flex;
   width: 20%;
   margin-right: 10%;
+  cursor: pointer;
 `;
 
 const Toolbox = () => {

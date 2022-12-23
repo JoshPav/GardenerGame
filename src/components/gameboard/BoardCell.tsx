@@ -43,6 +43,7 @@ const PlantCellContainer = styled.div`
   background-size: contain;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const PlantGraphicContainer = styled.div(({ selected }: PlantCellProps) => {
