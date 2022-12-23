@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
 import { GameSetup, IsLandscape } from "../../state/Game";
 import { BoardRow } from "./BoardRow";
-
+import GridNoPatches from "../../assets/grid_no_patches.png";
 type Props = {
   isPortrait: boolean;
 };
@@ -15,7 +15,7 @@ const GamboardContainer = styled.div(({ isPortrait }: Props) => {
     width: ${isPortrait ? 768 * 0.8 : 1024 * 0.7 * 0.63}px;
     flex-direction: column;
     border: 0.5vh solid #966f33;
-    background-image: url(src/assets/grid_no_patches.png);
+    background-image: url(${GridNoPatches});
     background-size: contain;
   `;
 });

@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import { GameSetup } from "../state/Game";
+import GameOverPNG from "../assets/game_over.png";
 
 type Props = {
   onNewGameClick: () => void;
@@ -25,7 +26,7 @@ const BackgroundContainer = styled.div`
   justify-content: center;
   height: 95%;
   width: 95%;
-  background-image: url("src/assets/game_over.png");
+  background-image: url(${GameOverPNG});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
