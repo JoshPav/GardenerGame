@@ -11,7 +11,7 @@ const LoadInPageContainer = styled.div`
 `;
 
 const GameHeader = styled.p`
-  font-family: fantasy;
+  font-family: sans-serif;
   font-size: 30px;
 `;
 

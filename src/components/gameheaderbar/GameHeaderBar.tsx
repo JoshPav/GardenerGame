@@ -47,7 +47,7 @@ const GameHeaderBar = (props: GameHeaderBarProps) => {
           right: 475,
           top: 238,
           transform: "rotate(13deg)",
-          fontFamily: "fantasy",
+          fontFamily: "sans-serif",
           color: "#e5b41d",
           fontWeight: 700,
           fontSize: 14,

@@ -17,7 +17,7 @@ const PortraitScoreMenu = styled.div`
   text-align: center;
   font-weight: 700;
   transform: rotate(-9deg);
-  font-family: fantasy;
+  font-family: sans-serif;
   color: #e5b41d;
   cursor: default;
 `;
@@ -30,7 +30,7 @@ const PortraitNameLabel = styled.div`
   text-align:center;
   font-weight: 700;
   transform rotate(-8deg);
-  font-family: fantasy;
+  font-family: sans-serif;
   letter-spacing: 2px;
   color: #e5b41d;
   cursor: default;

@@ -60,7 +60,7 @@ const NotificationBar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: fantasy;
+  font-family: sans-serif;
   font-weight: 700;
   top: 2%;
   width: 50%;

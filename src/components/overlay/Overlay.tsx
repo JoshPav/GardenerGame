@@ -53,7 +53,7 @@ type OverlayHeaderProps = {
 const GameHeader = styled.div`
   font-size: 26px;
   color: #ab7203;
-  font-family: fantasy;
+  font-family: sans-serif;
 `;
 
 const OverlayHeader = ({ name, onCancelClick }: OverlayHeaderProps) => {

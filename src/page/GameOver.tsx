@@ -44,7 +44,7 @@ const StyledButton = styled(Button)`
 `;
 
 const Text = styled.p`
-  font-family: fantasy;
+  font-family: sans-serif;
   font-size: 26px;
   margin: 0;
 `;

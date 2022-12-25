@@ -29,7 +29,7 @@ const Container = styled.div`
 
 const RowContainer = styled.div`
   display: flex;
-  font-family: fantasy;
+  font-family: sans-serif;
   font-size: 18px;
 `;
 
@@ -230,7 +230,7 @@ const Highscores = (props: Props) => {
       <HighscoreColumnHeaders />
 
       {loading && (
-        <Item style={{ fontFamily: "fantasy", margin: "10px" }}>
+        <Item style={{ fontFamily: "sans-serif", margin: "10px" }}>
           Loading...
         </Item>
       )}
