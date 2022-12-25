@@ -36,25 +36,10 @@ const GameHeaderBar = (props: GameHeaderBarProps) => {
   const gameboard = useRecoilValue(GameSetup).board;
   const { getEmptyCellCoordinates } = useSpawnLogic();
   const spacesLeft = getEmptyCellCoordinates(gameboard).length;
-  const spacesLeftText = `${spacesLeft} SPACES LEFT`;
   return (
     <Container isPortrait={!isLandscape}>
       <MenuPost onMenuClick={props.onMenuClick} />
       <Toolbox />
-      <div
-        style={{
-          position: "absolute",
-          right: 475,
-          top: 238,
-          transform: "rotate(13deg)",
-          fontFamily: "sans-serif",
-          color: "#e5b41d",
-          fontWeight: 700,
-          fontSize: 14,
-        }}
-      >
-        {spacesLeftText}
-      </div>
     </Container>
   );
 };
