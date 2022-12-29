@@ -49,12 +49,12 @@ export const useGameLogic = () => {
 
   const removeDuplicateCoordinates = (coordinates: Coordinate[]) => {
     let noDuplicates: Coordinate[] = [];
-
     coordinates.forEach((element) => {
       if (!noDuplicates.includes(element)) {
         noDuplicates.push(element);
       }
     });
+    console.log("noDuplicates - ", noDuplicates);
     return noDuplicates;
   };
 
@@ -97,7 +97,10 @@ export const useGameLogic = () => {
         touchingCoordinates = [];
       }
     }
-    return matchingCoordinates;
+    console.log("matchingCoordinates", matchingCoordinates);
+    const uniqueCoordinates = [...new Set(matchingCoordinates)];
+    console.log("unique", uniqueCoordinates);
+    return uniqueCoordinates;
   };
 
   const canDigUp = (minimumToDig: number, numberOfDigUp: number) => {

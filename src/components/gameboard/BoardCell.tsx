@@ -114,10 +114,22 @@ const PlantedCell = ({ plant, coordinate }: PlantedCellProps) => {
 
   const onPlantDig = () => {
     // Check is Valid Dig
-    const touchingPlantCoordinates = matchingPlantsTouching(
+    const initialCheckofCoordinates = matchingPlantsTouching(
       gameSetup.board,
       coordinate
     );
+
+    const touchingPlantCoordinates =
+      initialCheckofCoordinates === "empty"
+        ? "empty"
+        : initialCheckofCoordinates.filter(
+            (value, index, self) =>
+              index ===
+              self.findIndex(
+                (t: any) => t.XCord === value.XCord && t.YCord === value.YCord
+              )
+          );
+
     const canDig = canDigUp(
       plant.minimumToDig,
       touchingPlantCoordinates.length
