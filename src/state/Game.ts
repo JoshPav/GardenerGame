@@ -25,6 +25,7 @@ export const initialGameState: GameState = {
 export const GameSetup = atom({
   key: "gameboard",
   default: initialGameState,
+  dangerouslyAllowMutability: true,
 });
 
 export const GameStarted = atom({
