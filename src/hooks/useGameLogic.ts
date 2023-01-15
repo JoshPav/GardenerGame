@@ -97,9 +97,7 @@ export const useGameLogic = () => {
         touchingCoordinates = [];
       }
     }
-    console.log("matchingCoordinates", matchingCoordinates);
     const uniqueCoordinates = [...new Set(matchingCoordinates)];
-    console.log("unique", uniqueCoordinates);
     return uniqueCoordinates;
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { GameSetup, IsLandscape } from "../../state/Game";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { GameSetup, IsLandscape, PlantToSwap } from "../../state/Game";
 import styled, { css } from "styled-components";
 import swapSmurf from "../../assets/SwapSmurf.png";
 import digSmurf from "../../assets/DigSmurf.png";
@@ -25,7 +25,9 @@ const LandscapeCharacterContainer = styled.div`
 const Toolbox = () => {
   const [gameSetup, updateGameSetup] = useRecoilState(GameSetup);
   const isLandscape = useRecoilValue(IsLandscape);
+  const setPlantToSwap = useSetRecoilState(PlantToSwap);
   const setIsSwapTool = (bool: boolean) => {
+    setPlantToSwap(null);
     updateGameSetup((prevState) => ({
       ...prevState,
       playerStats: {
